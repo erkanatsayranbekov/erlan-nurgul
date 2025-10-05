@@ -43,7 +43,7 @@ export default function Home() {
     try {
       setConfetti(true)
 
-      const response = await fetch('https://sheetdb.io/api/v1/z7wlj8ie1sn2h ', {
+      const response = await fetch('https://sheetdb.io/api/v1/gci84i6xtazwh ', {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
