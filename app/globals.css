@@ -3,6 +3,8 @@
 @import url(/public/WonderGardenScript-Regular.ttf);
 @import url(/public/WonderGardenScript-Regular.woff);
 @import url(/public/WonderGardenScript-Regular.woff2);
+@import url(/public/KZ_Andantino_script_kz.ttf);
+
 
 @tailwind base;
 @tailwind components;
