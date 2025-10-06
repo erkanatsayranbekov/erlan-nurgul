@@ -1,5 +1,6 @@
 'use client'
 import dynamic from 'next/dynamic';
+import { use, useEffect } from 'react';
 import { YMaps, Map, Button, Placemark } from '@pbe/react-yandex-maps';
 import { useState } from 'react';
 import localFont from 'next/font/local';
@@ -40,7 +41,7 @@ export default function Home() {
   const [name, setName] = useState('')
   const [status, setStatus] = useState('')
   const [confetti, setConfetti] = useState(false)
-  const [play, setPlay] = useState(false)
+  const [play, setPlay] = useState(true)
 
   const playMusic = () => {
     setPlay(!play);
@@ -50,6 +51,29 @@ export default function Home() {
       document.getElementById('audio').play();
     }
   }
+
+  useEffect(() => {
+  const audio = document.getElementById('audio');
+  if (!audio) return;
+
+  const timer = setTimeout(() => {
+    audio.play().catch(() => {
+      // если автоплей заблокирован — ждём первое взаимодействие
+      const unlock = () => {
+        audio.play();
+        document.removeEventListener('click', unlock);
+        document.removeEventListener('scroll', unlock);
+        document.removeEventListener('touchstart', unlock);
+      };
+      document.addEventListener('click', unlock);
+      document.addEventListener('scroll', unlock);
+      document.addEventListener('touchstart', unlock);
+    });
+  }, 10); // 0.01 сек
+
+  return () => clearTimeout(timer);
+}, []);
+
 
   const Vote = async () => {
     try {
