@@ -81,6 +81,11 @@ export default function Home() {
 
   const Vote = async () => {
     try {
+      if (name === '' || status === '') {
+        alert('Атыңызды және қатысу мәртебеңізді көрсетіңіз!');
+        return;
+      }
+
       setConfetti(true)
 
       const response = await fetch('https://sheetdb.io/api/v1/gci84i6xtazwh ', {
