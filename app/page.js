@@ -208,7 +208,7 @@ export default function Home() {
 
       <motion.div whileInView={{ opacity: 1, y: 0 }} initial={{ opacity: 0, y: 100 }} exit={{ opacity: 0, y: -100 }} transition={{ duration: 1 }} className=' flex flex-col w-[80%] mx-auto mb-[100px] ] p-4 rounded-lg relative overflow-hidden right-0 justify-center items-center text-lg gap-3 '>
         <img src="/favicon.png" alt="2gis" className=' h-[100px] w-[100px] mt-12' onClick={(e) => {
-          window.location.href = 'https://go.2gis.com/jQ3S9'
+          window.location.href = 'https://2gis.kz/astana/geo/70000001036844460'
         }} />
         <p className=' text-4xl font-extrabold'>Астана қаласы</p>
         <p className=' text-2xl font-extrabold'>"Шығыс жұлдызы" мейрамханасы</p>
