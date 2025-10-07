@@ -234,7 +234,7 @@ export default function Home() {
             data={{ content: 'Показать в 2ГИС' }}
             defaultState={{ selected: true }}
             onClick={(e) => {
-              window.location.href = 'https://go.2gis.com/jQ3S9'
+              window.location.href = 'https://2gis.kz/astana/geo/70000001036844460'
             }}
           />
         </Map>
