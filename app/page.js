@@ -56,22 +56,27 @@ export default function Home() {
     const audio = document.getElementById('audio');
     if (!audio) return;
 
-    const timer = setTimeout(() => {
-      audio.play().catch(() => {
-        const unlock = () => {
-          audio.play();
-          document.removeEventListener('click', unlock);
-          document.removeEventListener('scroll', unlock);
-          document.removeEventListener('touchstart', unlock);
+    const tryPlay = async () => {
+      try {
+        await audio.play();
+      } catch {
+        const unlock = async () => {
+          try {
+            await audio.play();
+            document.removeEventListener('click', unlock);
+            document.removeEventListener('touchstart', unlock);
+          } catch (e) {
+            console.log('Audio play blocked again:', e);
+          }
         };
-        document.addEventListener('click', unlock);
-        document.addEventListener('scroll', unlock);
-        document.addEventListener('touchstart', unlock);
-      });
-    }, 10);
+        document.addEventListener('click', unlock, { once: true });
+        document.addEventListener('touchstart', unlock, { once: true });
+      }
+    };
 
-    return () => clearTimeout(timer);
+    tryPlay();
   }, []);
+
 
 
   const Vote = async () => {
@@ -139,30 +144,28 @@ export default function Home() {
 
 
       <motion.div whileInView={{ opacity: 1, y: 0 }} initial={{ opacity: 0, y: 100 }}  transition={{ duration: 1 }} className='w-[80%] font-bold mx-auto text-center my-[20px] relative'>
-      <p className={`${wg.className} font-bold text-8xl`}>22.11.2025</p>
-      <p className={`${wg.className} font-bold text-6xl`}> 17:00 | Сенбі</p>
+        <p className={`${wg.className} font-bold text-6xl`}>22.11.2025</p>
+        <p className={`${wg.className} font-bold text-6xl`}> 17:00 | Сенбі</p>
       </motion.div>
       
       <div className=' w-full flex flex-col justify-center items-center '>
         <CountDown />
         <motion.div whileInView={{ opacity: 1, y: 0 }} initial={{ opacity: 0, y: 100 }} exit={{ opacity: 0, y: -100 }} transition={{ duration: 1 }} className=' text-center z-20 p-3 rounded-lg text-2xl'>
-          <i><h1 className='text-4xl'>Құрметті</h1>
-          <p className=' text-lg font-light'>
-            ағайын-туыс, бауырлар, нағашы-жиен, бөлелер, құда-жекжат, дос-жарандар, көршілер мен әріптестер! <br />
-            Сіз(дер)ді балаларымыз</p>
+          <i>
+            <h1 className='text-3xl'>Құрметті</h1>
+            <p className=' text-lg font-light'>
+              ағайын-туыс, бауырлар, нағашы-жиен, бөлелер, құда-жекжат, дос-жарандар, көршілер мен әріптестер! <br />
+              Сіз(дер)ді балаларымыз
+            </p>
           </i>
         </motion.div>
       </div>
 
-
-      <div className='flex flex-col font-bold  w-[80%] mx-auto mt-4 justify-between text-black h-[110%]'>
-
-
-      </div>
+      <div className='flex flex-col font-bold  w-[80%] mx-auto mt-4 justify-between text-black h-[110%]'></div>
 
       <motion.div whileInView={{ opacity: 1, y: 0 }} initial={{ opacity: 0, y: 100 }} transition={{ duration: 1 }} className='w-[80%] font-light mx-auto text-center relative mb-[170px] border-[#96825f] border-[1px] '>
         <i>
-          <p className={`text-4xl mt-6 m-0 absolute top-0 right-10`}>Eрлан мен Нұргүл</p>
+          <p className={`text-3xl mt-6 m-0 absolute top-0 right-10`}>Eрлан мен Нұргүл</p>
           <p className=' absolute top-16 text-lg font-light'>Отау құру тойына арналған салтанатты ақ дастарханымыздың қадірлі қонағы болуға шақырамыз!
           </p>
         </i>
@@ -170,7 +173,7 @@ export default function Home() {
 
       <motion.div whileInView={{ opacity: 1, y: 0 }} initial={{ opacity: 0, y: -100 }} exit={{ opacity: 0, y: -100 }} transition={{ duration: 1 }} className='pb-8'>
         <i>
-          <h1 className='text-4xl font-light'>Той иелері:</h1>
+          <h1 className='text-3xl font-light'>Той иелері:</h1>
           <p className='text-lg font-light'>Ахматуллин Ғалымбек пен Нағиманың балалары</p>
         </i>
       </motion.div>
@@ -194,12 +197,12 @@ export default function Home() {
             <label for='default-radio-1' className='ms-2 text-xs font-extrabold '>ИӘ, КЕЛЕМІН</label>
           </div>
           <div className='flex items-center'>
-            <input id='default-radio-1' type='radio' value='ИӘ, КЕЛЕМІН' name='default-radio' className='w-4 h-4 outline-none text-blue-600 bg-gray-100 border-gray-300' onChange={(e) => setStatus(e.target.value)} />
-            <label for='default-radio-1' className='ms-2 text-xs font-extrabold '>ИӘ, ЖОЛДАСЫММЕН КЕЛЕМІН</label>
+            <input id='default-radio-2' type='radio' value='ИӘ, КЕЛЕМІН' name='default-radio' className='w-4 h-4 outline-none text-blue-600 bg-gray-100 border-gray-300' onChange={(e) => setStatus(e.target.value)} />
+            <label for='default-radio-2' className='ms-2 text-xs font-extrabold '>ИӘ, ЖОЛДАСЫММЕН КЕЛЕМІН</label>
           </div>
           <div className='flex items-center'>
-            <input id='default-radio-2' type='radio' value='ӨКІНІШКЕ ОРАЙ КЕЛЕ АЛМАЙМЫН' name='default-radio' className='w-4 h-4 outline-none text-blue-600 bg-gray-100 border-gray-300' onChange={(e) => setStatus(e.target.value)} />
-            <label for='default-radio-2' className='ms-2 text-xs font-extrabold '>ӨКІНІШКЕ ОРАЙ КЕЛЕ АЛМАЙМЫН</label>
+            <input id='default-radio-3' type='radio' value='ӨКІНІШКЕ ОРАЙ КЕЛЕ АЛМАЙМЫН' name='default-radio' className='w-4 h-4 outline-none text-blue-600 bg-gray-100 border-gray-300' onChange={(e) => setStatus(e.target.value)} />
+            <label for='default-radio-3' className='ms-2 text-xs font-extrabold '>ӨКІНІШКЕ ОРАЙ КЕЛЕ АЛМАЙМЫН</label>
           </div>
         </div>
         <button type='submit' className=' mt-8 text-white bg-[#96825f] hover:bg-[#79633d] focus:ring-4 focus:ring-blue-300 font-medium rounded-lg px-5 py-2.5 me-2 my-2 dark:bg-[#96825f] dark:hover:bg-[#96825f] focus:outline-none dark:focus:ring-[#96825f] text-xl' onClick={Vote}>Растау</button>
