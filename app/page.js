@@ -53,26 +53,25 @@ export default function Home() {
   }
 
   useEffect(() => {
-  const audio = document.getElementById('audio');
-  if (!audio) return;
+    const audio = document.getElementById('audio');
+    if (!audio) return;
 
-  const timer = setTimeout(() => {
-    audio.play().catch(() => {
-      // если автоплей заблокирован — ждём первое взаимодействие
-      const unlock = () => {
-        audio.play();
-        document.removeEventListener('click', unlock);
-        document.removeEventListener('scroll', unlock);
-        document.removeEventListener('touchstart', unlock);
-      };
-      document.addEventListener('click', unlock);
-      document.addEventListener('scroll', unlock);
-      document.addEventListener('touchstart', unlock);
-    });
-  }, 10); // 0.01 сек
+    const timer = setTimeout(() => {
+      audio.play().catch(() => {
+        const unlock = () => {
+          audio.play();
+          document.removeEventListener('click', unlock);
+          document.removeEventListener('scroll', unlock);
+          document.removeEventListener('touchstart', unlock);
+        };
+        document.addEventListener('click', unlock);
+        document.addEventListener('scroll', unlock);
+        document.addEventListener('touchstart', unlock);
+      });
+    }, 10);
 
-  return () => clearTimeout(timer);
-}, []);
+    return () => clearTimeout(timer);
+  }, []);
 
 
   const Vote = async () => {
@@ -105,7 +104,7 @@ export default function Home() {
 
   return (
     <div className='font-[wg] text-center overflow-hidden'>
-      <audio src="./music.mp3" autoPlay loop id='audio'></audio>
+      <audio src="./music.m4a" autoPlay loop id='audio'></audio>
     <motion.div whileInView={{ opacity: 1, y: 0 }} initial={{ opacity: 0, y: 100 }} exit={{ opacity: 0, y: -100 }} transition={{ duration: 1 }}   className=' absolute top-[450px] left-[5%] z-10 ml-8'>
       <div className='flex space-x-2 justify-center items-center '>
         <img src="/play.png" alt="play" className={` h-[65px] w-[65px] mix-blend-luminosity absolute left-[10%] bg-white/70 hover:bg-white/90 rounded-full  ${play && 'animate-[spin_30s_linear_infinite]'}`}/>
@@ -161,11 +160,18 @@ export default function Home() {
 
       </div>
 
-      <motion.div whileInView={{ opacity: 1, y: 0 }} initial={{ opacity: 0, y: 100 }} transition={{ duration: 1 }} className='w-[80%] font-bold mx-auto text-center relative mb-[170px] border-[#96825f] border-[1px] '>
+      <motion.div whileInView={{ opacity: 1, y: 0 }} initial={{ opacity: 0, y: 100 }} transition={{ duration: 1 }} className='w-[80%] font-light mx-auto text-center relative mb-[170px] border-[#96825f] border-[1px] '>
         <i>
-          <p className={`text-3xl mt-6 m-0 absolute top-0 right-10`}>Eрлан мен Нұргүл</p>
+          <p className={`text-4xl mt-6 m-0 absolute top-0 right-10`}>Eрлан мен Нұргүл</p>
           <p className=' absolute top-16 text-lg font-light'>Отау құру тойына арналған салтанатты ақ дастарханымыздың қадірлі қонағы болуға шақырамыз!
           </p>
+        </i>
+      </motion.div>
+
+      <motion.div whileInView={{ opacity: 1, y: 0 }} initial={{ opacity: 0, y: -100 }} exit={{ opacity: 0, y: -100 }} transition={{ duration: 1 }} className='pb-8'>
+        <i>
+          <h1 className='text-4xl font-light'>Той иелері:</h1>
+          <p className='text-lg font-light'>Ахматуллин Ғалымбек пен Нағиманың балалары</p>
         </i>
       </motion.div>
 
